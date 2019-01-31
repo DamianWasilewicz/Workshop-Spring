@@ -38,6 +38,7 @@ else{
 // x = br.left
 // y = br.top
 c.addEventListener('click', function(e){
+  e.preventDefault();
   if(dot==0){
     ctx.fillStyle = "red";
     ctx.fillRect(e.offsetX, e.offsetY, 30,30);
