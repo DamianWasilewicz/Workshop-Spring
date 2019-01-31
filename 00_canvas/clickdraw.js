@@ -16,36 +16,36 @@ butt.addEventListener('click', function(e) {
 }
 );
 
-var shape = 0;
+var dot = 0;
 
 var toggle = document.getElementById("toggle")
 
 toggle.addEventListener('click', function(e) {
-if(shape==0){
-  shape = 1;
+if(dot==0){
+  dot = 1;
   toggle.innerHTML = "Dot"
-  console.log(shape);
+  console.log(dot);
 }
 else{
-  shape = 0;
+  dot = 0;
   toggle.innerHTML = "Rectangle"
-  console.log(shape);
+  console.log(dot);
 }
 }
 )
 
-var br = c.getBoundingClientRect()
-x = br.left
-y = br.top
+// var br = c.getBoundingClientRect()
+// x = br.left
+// y = br.top
 c.addEventListener('click', function(e){
-  if(shape==0){
+  if(dot==0){
     ctx.fillStyle = "red";
-    ctx.fillRect(e.clientX - x, e.clientY - y, 30,30);
+    ctx.fillRect(e.offsetX, e.offsetY, 30,30);
   }
-  if(shape==1){
+  if(dot==1){
     ctx.fillStyle = "green"
     ctx.beginPath();
-    ctx.ellipse(e.clientX - x,e.clientY - y, 15,15, 0,0, 2 * Math.PI);
+    ctx.ellipse(e.offsetX ,e.offsetY, 15,15, 0,0, 2 * Math.PI);
     ctx.fill();
   }
 })
