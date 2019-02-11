@@ -54,8 +54,9 @@ var xd = 1;
 var rectWidth = 100;
 var rectHeight = 50;
 //starting spot
-var x = 100;
-var y = 100;
+var x = Math.floor(Math.random() * (c.width - rectWidth));
+var y = Math.floor(Math.random() * (c.height - rectHeight));
+
 
 var dvdLogoSetup = function(){
   //prevents acceleration upon multiple clicks
@@ -99,7 +100,7 @@ var dvdLogoSetup = function(){
   //draws specified image at coordinates and with desired dimensions. last two parameters are optional,
   //but if they're not specified then the image is too large for the frame
   ctx.drawImage(logo, x, y, rectWidth, rectHeight);
-  //set requestId to new frame 
+  //set requestId to new frame
   reqId = window.requestAnimationFrame(dvdLogoSetup);
 }
 
