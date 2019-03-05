@@ -13,13 +13,13 @@ collection = db['primer-dataset']
 
 #search collection based on zip
 def findZip(zip):
-    return collection.find({"address.zipcode":"zip"})
+    print(collection.find({"address.zipcode":zip}))
 #search collection based on borough
 def findBorough(borough):
-    return collection.find({"borough":"borough"})
+    print(collection.find({"borough":borough}))
 #search collection based on zip code and grade letter
 def findZipGrade(zip,grade):
-    return collection.find({'$and': [{"address.zipcode":"zip"},{"grades.0.grade":"grade"}]})
+    print(collection.find({'$and': [{"address.zipcode":zip},{"grades.0.grade":grade}]}))
 #search collection based on zip code and grade score
 def findZipScore(zip,score):
-    return collection.find({'$and': [{"address.zipcode":"zip"},{"grades.0.grade":"score"}]})
+    print(collection.find({'$and': [{"address.zipcode":zip},{"grades.0.grade":score}]}))
