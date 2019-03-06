@@ -15,17 +15,21 @@ it into our new collection after loading it
 '''
 import pymongo
 import json
+from pprint import pprint
 
 #setup
-SERVER_ADDR = "68.183.28.211"
+SERVER_ADDR = "157.230.63.56"
 connection=pymongo.MongoClient(SERVER_ADDR)
-connection.drop_database("DoubleU")
+#connection.drop_database("DoubleU")
 db = connection.DoubleU
 col = db.laureates
 
-f = open("laureate.json")
+f = open("db.json")
 data = json.load(f)
-col.insert_many(data["laureates"])
+pprint(data['laureates'])
+for x in data['laureates']:
+    pprint(x)
+    col.insert_many(x)
 
 
 
@@ -40,12 +44,12 @@ def searchByPrizeYear(year):
 
 #search by prize year and by prize category
 def searchByPrizeAndYear(prize, year):
-    for laureate in laureates.find({'$and' L [{'prizes.year': year], {'prizes.category' : prize}}]});
-    try:
-        print(laureate["firstname"] + ' ' + laureate["surname"])
-    except:
-        #in case the laureate doesnt have a last name
-        print(laureate["firstname"])
+    for laureate in laureates.find({'$and' : [{'prizes.year': year}, {'prizes.category' : prize}]}):
+        try:
+            print(laureate["firstname"] + ' ' + laureate["surname"])
+        except:
+            #in case the laureate doesnt have a last name
+            print(laureate["firstname"])
 
 #search for laureates by prize category
 def searchByPrize(prize):
@@ -56,17 +60,8 @@ def searchByPrize(prize):
             #in case the laureate doesnt have a last name
             print(laureate["firstname"])
 
-#search by the number of prizes won by the laureate
-def searchByNum(prizeNum):
-    for laureate in laureates.find({'$where' : 'this.prizes.length>' + prizeNum});
-    try:
-        print(laureate["firstname"] + ' ' + laureate["surname"])
-    except:
-        #in case the laureate doesnt have a last name
-        print(laureate["firstname"])
 
 
 searchByPrize('chemistry')
-searchByNum('2')
 searchByPrizeYear('2001')
 searchByPrizeAndYear('chemistry', '2001')
