@@ -18,18 +18,18 @@ import json
 from pprint import pprint
 
 #setup
-SERVER_ADDR = "157.230.63.56"
+SERVER_ADDR = "68.183.28.211"
 connection=pymongo.MongoClient(SERVER_ADDR)
-#connection.drop_database("DoubleU")
+connection.drop_database("DoubleU")
 db = connection.DoubleU
 col = db.laureates
 
-f = open("db.json")
+f = open("laureates.json")
 data = json.load(f)
-pprint(data['laureates'])
-for x in data['laureates']:
-    pprint(x)
-    col.insert_many(x)
+#pprint(data['laureates'])
+#for x in data['laureates']:
+    #pprint(x)
+    #col.insert_many(x)
 
 
 
