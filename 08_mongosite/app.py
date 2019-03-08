@@ -6,16 +6,13 @@
 """
 dataset = list of current US senators
 https://www.govtrack.us/api/v2/role?current=true&role_type=senator
-I just edited it use text editor to format it in the format I want
-then I just used mongoimport with --jsonArray attached to it
 """
 
 import os
-import pprint
+import json
 
 from flask import Flask, render_template, request, redirect, url_for, session
 from pymongo import MongoClient
-from bson import json_util
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
@@ -26,24 +23,19 @@ DEFAULTADDR = "178.128.157.14"
 DBNAME = "gov"
 COLNAME = "senators"
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/', methods=['GET'])
 def main():
-	if request.method == 'POST':
-		addr = request.form['ip']
-		if len(addr) == 0:
-			addr = DEFAULTADDR
-		client = MongoClient(addr)
-
-		db = client[DBNAME]
-		collection = db[COLNAME]
-		session['addr'] = addr
-		return render_template("request.html")
-	else:
-		return render_template("home.html")
+	if 'addr' not in session:
+		session['addr'] = DEFAULTADDR
+	return render_template("home.html")
 
 @app.route('/config', methods=['GET','POST'])
 def config():
+	if 'addr' not in session:
+		session['addr'] = DEFAULTADDR
 	if request.method == 'POST':
+		destroy_db(session['addr'])
+
 		addr = request.form['ip']
 		if len(addr) == 0:
 			addr = DEFAULTADDR
@@ -52,37 +44,39 @@ def config():
 		db = client[DBNAME]
 		collection = db[COLNAME]
 		session['addr'] = addr
-		return render_template("config.html", ip=addr)
+
+		# Probably should handle errors
+		create_db(addr)
+	return render_template("config.html", ip=session['addr'])
+
+@app.route('/search')
+def search():
+	if 'addr' not in session:
+		session['addr'] = DEFAULTADDR
+	if request.args['first']:
+		firstname = request.values.get("first")
+		list = []
+		client = MongoClient(session['addr'], serverSelectionTimeoutMS=3000)
+		collection = client[DBNAME][COLNAME]
+		senators = collection.find({"person.firstname": firstname})
+		return render_template("search.html", queryarg=firstname, query=senators)
 	else:
-		if 'addr' not in session:
-			session['addr'] = DEFAULTADDR
-		return render_template("config.html", ip=session['addr'])
+		return redirect(url_for("main"))
 
-@app.route('/connect',methods=['GET','POST'])
-def connectdb():
-	if request.method == 'POST':
-		if request.form['first'] is not None:
-			txt = request.values.get("first")
-			#print(txt)
-			list = []
-			for senator in data.collection.find({"person.firstname":txt}):
-				pprint.pprint(senator)
-		return render_template("respond.html")
+def destroy_db(addr):
+	print("Destroying database at " + addr)
+	client = MongoClient(addr, serverSelectionTimeoutMS=3000)
+	client.drop_database(DBNAME)
 
-@app.route('/respond')
-def respond():
-	#if(request.method == "POST"):
-		#addr = request.form[]
-	return render_template("response.html")
-
-def destroy_db():
-	# TODO: helper function to drop a mongodb db at a given IP
-	pass
-
-def create_db():
-	# TODO: helper function to create a mongodb db at a given IP
-	pass
+def create_db(addr):
+	client = MongoClient(addr, serverSelectionTimeoutMS=3000)
+	collection = client[DBNAME][COLNAME]
+	print("Creating database at " + addr)
+	with open('senator.json', 'r') as f:
+		collection.insert_many(json.loads(f.read())['objects'])
 
 if __name__ == "__main__":
+	destroy_db(DEFAULTADDR)
+	create_db(DEFAULTADDR)
 	app.debug = True
 	app.run()
