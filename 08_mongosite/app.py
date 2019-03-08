@@ -21,7 +21,8 @@ app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
 # mongodb constants
-DEFAULTADDR = "mud.ddns.net"
+DEFAULTADDR = "178.128.157.14"
+# DEFAULTADDR = "mud.ddns.net"
 DBNAME = "gov"
 COLNAME = "senators"
 
