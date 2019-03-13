@@ -39,6 +39,7 @@ pic.addEventListener('click', function(e) {
 clr.addEventListener('click', function(e) {
   while(pic.lastChild) {
     pic.removeChild(pic.lastChild);
+//  location.reload();
     lx = 0;
     ly = 0;
   }
