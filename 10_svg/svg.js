@@ -1,6 +1,6 @@
 //Damian Wasilewicz
 //SoftDev pd6
-//K10 -- Connect the Dots
+//K10 -- Ask Circles [Change || Die]
 //2019-03-14
 
 
@@ -18,24 +18,24 @@ pic.addEventListener('click', function(e) {
   var c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
   x = e.offsetX;
   y = e.offsetY;
+  if(e.target.nodeName != "circle"){
   c.setAttribute("cx", x);
   c.setAttribute("cy", y);
   c.setAttribute("r", "15");
   c.setAttribute("fill", "red");
   c.setAttribute("stroke", "black");
+  }
   c.addEventListener('click', function(e) {
-    c.setAttribute("fill", "green")
+    if(c.getAttribute("fill") == "green"){
+      c.setAttribute("cx", Math.floor(Math.random() * 500));
+      c.setAttribute("cy", Math.floor(Math.random() * 500));
+      c.setAttribute("fill", "red")
+    }
+    else{
+      c.setAttribute("fill", "green");
+    }
   })
   pic.appendChild(c);
-  if(ltf){
-    var l = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    l.setAttribute("x1", lx);
-    l.setAttribute("y1", ly);
-    l.setAttribute("x2", x);
-    l.setAttribute("y2", y);
-    l.setAttribute("stroke", "black");
-    pic.appendChild(l);
-  }
   lx = e.offsetX;
   ly = e.offsetY;
   ltf = true;
