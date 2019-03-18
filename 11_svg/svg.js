@@ -6,11 +6,10 @@
 
 var pic = document.getElementById("vimage");
 var clr = document.getElementById("but_clear");
+var mv = document.getElementById("but_move");
 var lx = 0;
 var ly = 0;
 var ltf = false;
-
-
 
 
 
@@ -24,6 +23,8 @@ pic.addEventListener('click', function(e) {
   c.setAttribute("r", "15");
   c.setAttribute("fill", "red");
   c.setAttribute("stroke", "black");
+  c.setAttribute("xVel", 1);
+  c.setAttribute("yVel", 1);
   }
   c.addEventListener('click', function(e) {
     if(c.getAttribute("fill") == "green"){
@@ -49,5 +50,29 @@ clr.addEventListener('click', function(e) {
     lx = 0;
     ly = 0;
     ltf = false;
+    window.cancelAnimationFrame(requestID);
   }
 });
+
+var requestID;
+var animate = function(){
+    window.cancelAnimationFrame(requestID);
+    var i;
+    var children = pic.children;
+    for (i = 0; i < children.length; i++) {
+        var circle = children[i];
+        var r = circle.getAttribute("r");
+        var cx = parseInt(circle.getAttribute("cx")) + parseInt(circle.getAttribute("xVel"));
+        var cy = parseInt(circle.getAttribute("cy")) + parseInt(circle.getAttribute("yVel"));
+        var xVel = parseInt(circle.getAttribute("xVel"));
+        var yVel = parseInt(circle.getAttribute("yVel"));
+
+        if (cx > pic.getAttribute("width") - r || cx < r) circle.setAttribute("xVel", xVel * -1);
+        if (cy > pic.getAttribute("height") - r || cy < r) circle.setAttribute("yVel", yVel * -1);
+
+        circle.setAttribute("cx", cx);
+        circle.setAttribute("cy", cy);
+    }
+    requestID = window.requestAnimationFrame(animate);
+};
+mv.addEventListener("click", animate);
