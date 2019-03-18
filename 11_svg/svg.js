@@ -7,6 +7,7 @@
 var pic = document.getElementById("vimage");
 var clr = document.getElementById("but_clear");
 var mv = document.getElementById("but_move");
+var rv = document.getElementById("but_rand");
 var lx = 0;
 var ly = 0;
 var ltf = false;
@@ -50,13 +51,16 @@ clr.addEventListener('click', function(e) {
     lx = 0;
     ly = 0;
     ltf = false;
-    window.cancelAnimationFrame(requestID);
+    window.cancelAnimationFrame(requestID1);
+    window.cancelAnimationFrame(requestID2);
   }
 });
 
-var requestID;
+var requestID1;
+var requestID2;
 var animate = function(){
-    window.cancelAnimationFrame(requestID);
+    window.cancelAnimationFrame(requestID1);
+    window.cancelAnimationFrame(requestID2);
     var i;
     var children = pic.children;
     for (i = 0; i < children.length; i++) {
@@ -73,6 +77,34 @@ var animate = function(){
         circle.setAttribute("cx", cx);
         circle.setAttribute("cy", cy);
     }
-    requestID = window.requestAnimationFrame(animate);
+    requestID1 = window.requestAnimationFrame(animate);
+};
+var randanimate = function(){
+    window.cancelAnimationFrame(requestID2);
+    window.cancelAnimationFrame(requestID1);
+    var i;
+    var children = pic.children;
+    for (i = 0; i < children.length; i++) {
+        var circle = children[i];
+        var r = circle.getAttribute("r");
+        var cx = parseInt(circle.getAttribute("cx")) + parseInt(circle.getAttribute("xVel"));
+        var cy = parseInt(circle.getAttribute("cy")) + parseInt(circle.getAttribute("yVel"));
+        if (xVel > 4){
+            window.cancelAnimationFrame(requestID2);
+      }
+      if (yVel > 4){
+        window.cancelAnimationFrame(requestID2);
+    }
+        var xVel = parseInt(circle.getAttribute("xVel") * 2)
+        var yVel = parseInt(circle.getAttribute("yVel") * 2)
+
+        if (cx > pic.getAttribute("width") - r || cx < r) circle.setAttribute("xVel", xVel * -1);
+        if (cy > pic.getAttribute("height") - r || cy < r) circle.setAttribute("yVel", yVel * -1);
+
+        circle.setAttribute("cx", cx);
+        circle.setAttribute("cy", cy);
+    }
+    requestID2 = window.requestAnimationFrame(randanimate);
 };
 mv.addEventListener("click", animate);
+rv.addEventListener("click", randanimate)
