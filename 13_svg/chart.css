@@ -1,0 +1,10 @@
+.chart rect
+{
+    fill: steelblue;
+}
+.chart text
+{
+    fill: white;
+    text-anchor: right;
+    font: 10px sans-serif;
+}
