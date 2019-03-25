@@ -1,3 +1,4 @@
+
 var svg = document.getElementById("vimage");
 
 var x = [0.6, 0.9, 1.2, 1.9, 2, 2.1, 2.2, 2.5, 2.5, 2.8,
@@ -16,8 +17,6 @@ var y = [ 7.95, 9.17, 9.76, 6.14, 14.1, 7.55, 2.44, 13.2, 7.17, 7.5, 5.08, 6.57,
 11.3, 5.05, 7.57, 3.91, 5.4, 2.62, 4.58, 7.1, 5.64, 4.9, 7.19, 9.97, 12.74, 33.63, 5.66, 2.66, 4.61, 20.54,
 4.07, 6.64, 3.48, 8.12, 8.52, 9.66, 8.33, 19.42, 8.82, 6.95];
 
-
-
 var p = d3.select("svg")
   .selectAll("circle")
   .data(x)
@@ -25,13 +24,14 @@ var p = d3.select("svg")
   .enter();
 
 var plot = function(e) {
-  var data = p.append("circle")
-	data.attr("cx", (parseInt(x[e]) / 100));
-	data.attr("cy", ((Math.floor(y[e]*4)+100)));
+  var data = p.append("circle");
+//  console.log()
+	data.attr("cx", (parseInt(x[e])*10));
+	data.attr("cy", ((Math.floor(y[e]*10))));
 	data.attr("r", 3);
 };
 
 for (var i = 0; i < x.length; i ++) {
     plot(i);
-    print(y.length)
+    //print(y.length);
 };
