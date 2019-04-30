@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>PhoneGap - By Amit Narang & Damian Wasilewicz</title>
+  </head>
+  <body>
+    <center><h1> PhoneGap- By Amit Narang & Damian Wasilewicz</h1> </center>
+      <h2> What is PhoneGap? </h2>
+      <p>PhoneGap is a development framework for mobile applications. Allows users to develop applications using:</p>
+      <ul>
+        <li>CSS3</li>
+        <li>HTML</li>
+        <li>JavaScript</li>
+      </ul>
+      <h2> History </h2>
+      <ul>
+        <li>Originally developed by Nitobi</li>
+        <li>Won People's Choice Award at Web 2.0 Expo in 2009</li>
+        <li>Purchased by Adobe</li>
+        <li>PhoneGap is commercial version of Apache Cordova</li>
+      </ul>
+      <h2>Why is PhoneGap useful?</h2>
+      <ul>
+        <li>PhoneGap API allows you to access native OS functionality (camera, location, etc.) using JS</li>
+        <li>You write the app, PhoneGap handles communication with OS</li>
+        <li>Lets you use languages you are familiar with (HTML/CSS, JavaScript) versus facing a learning curve (such as with Objective C or Swift)</li>
+      </ul>
+      <h2>Native Application</h2>
+      <ul>
+        <li>Access to Device</li>
+        <li>Offline-Capable</li>
+        <li>Runs as locally installed application</li>
+        <li>Built for specific devices or operating systems only</li>
+        <li>Built in:</li>
+        <ul>
+          <li> Objective-C/Swift (iOS)</li>
+          <li> Java (Android) </li>
+          <li> C# (Windows) </li>
+        </ul>
+      </ul>
+      <h2>Mobile Application</h2>
+      <ul>
+        <li>Runs from mobile browser</li>
+        <li>Less access to device</li>
+        <li>No offline capabilities</li>
+        <li>One code for multiple operating systems</li>
+        <li>Built in:</li>
+        <ul>
+          <li>HTML5</li>
+          <li>CSS</li>
+          <li>JavaScript</li>
+        </ul>
+      </ul>
+      <h2>Hybrid: Best of Both Worlds</h2>
+      <ul>
+        <li>Written like web application (HTML/CSS, JavaScript)</li>
+        <li>Can run as web application</li>
+        <li>One repository</li>
+        <li>Can run as a locally installed app</li>
+        <li>One app for multiple systems</li>
+        <li>Doesn’t require web browser</li>
+        <li>Native API’s (accelerometer, geolocation, etc.)</li>
+        <li>Usually native controls provide navigation/transitions</li>
+        <li>Uses embedded webview (browser bundled inside of a mobile application), which wraps the main content</li>
+        <b><li>You can make hybrid applications with PhoneGap !!!</li></b>
+      </ul>
+      <h2> Native Plugins </h2>
+        <ul>
+          <li>PhoneGap does not recreate every native API</li>
+          <li>If you want to access other native functionality, you can write native plugins!</li>
+        </ul>
+      <h1>Getting Started</h1>
+      <h2>Using PhoneGap</h2>
+      <h3>PhoneGap Desktop App</h3>
+        <ul>
+          <li>More visual/easier to use</li>
+          <li>Download</li>
+        </ul>
+      <h3>PhoneGap CLI</h3>
+      <ul>
+        <li>Command Line Interface</li>
+        <li>More features</li>
+      </ul>
+      <h2> Developer App </h2>
+      <ul>
+        <li>Connect to Server</li>
+        <li>Available on Google Play and Windows Phone Store</li>
+        <li>Not on App Store</li>
+      </ul>
+      <h2> Creating Your App </h2>
+      <ul>
+        <li>Create new apps or link old ones</li>
+        <li>Link pathway to directory in which application is stored</li>
+      </ul>
+      <h2> Previewing Your App </h2>
+      <ul>
+        <li>You can preview by running server from desktop app and accessing it</li>
+        <li>You can also use an Emulator (only works on Google Chrome)</li>
+        <li>Option to preview from phone</li>
+      </ul>
+      <h1>PhoneGap Build</h1>
+      <h2>PhoneGap Build-Building and Packaging</h2>
+      <h3>Advantages</h3>
+      <ul>
+        <li>Utilizes Cloud</li>
+        <li>Doesn’t require native SDK’s</li>
+        <li>Does most of the work for you</li>
+        <li>Integrated with Git-push from repo</li>
+      </ul>
+      <h3>Disadvantages</h3>
+      <ul>
+        <li>For iOS, requires Apple Developer</li>
+        <li>Bulkier plans cost money</li>
+        <li>Free version doesn’t allow native custom plugins</li>
+      </ul>
+      <h2>Demonstration</h2>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/xwZ5qhqQ3j8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <h2> Code Breakdown </h2>
+      <h3>Breakdown-config.xml</h3>
+      <ul>
+        <li>Allows developers to specify metadata about their applications </li>
+        <li>Versions of this file are passively copied into platforms/ subdirectories (eg the config.xml inside browser/)</li>
+      </ul>
+      <h3>Breakdown-/hooks</h3>
+      <ul>
+        <li>Didn’t need any in our project.</li>
+        <li>Hooks are pieces of code that the CLI executes at certain points of your application build process. </li>
+        <li>Named based on when they should execute (after_build, after_run, etc.)</li>
+        <li>Can also store hooks in your config.xml file </li>
+        <li>Typically written in Node.JS</li>
+        <li>Examples of common uses: add plugins, replacing text on the screen, splash screens</li>
+      </ul>
+      <h3> Breakdown-/platforms</h3>
+      <ul>
+        <li>platforms.json file specifies the platforms the app should work on</li>
+      </ul>
+      <h3> Breakdown-/www> </h3>
+      <ul>
+        <li>Images go into the /img subfolder</li>
+        <li>CSS files go into the /css subfolder</li>
+        <li>JS files and Persistence Stores go into the /js subfolder</li>
+        <li>Index.html is the base of the application</li>
+      </ul>
+      <h1>Sources</h1>
+        <ul>
+          <li>https://www.comentum.com/phonegap-vs-native-app-development.html</li>
+          <li>https://phonegap.com/blog/2015/03/12/mobile-choices-post1/</li>
+          <li>http://www.tricedesigns.com/2012/03/01/phonegap-native-plugins/</li>
+          <li>https://phonegap.com/blog/2012/05/02/phonegap-explained-visually/</li>
+          <li>http://docs.phonegap.com/phonegap-build/developer-api/</li>
+          <li>http://docs.phonegap.com/tutorials/develop/1-embed-webview/ios/</li>
+          <li>http://coenraets.org/blog/phonegap-tutorial/</li>
+          <li>http://stage.docs.phonegap.com/tutorials/configure/04-using-hooks/</li>
+          <li>https://cordova.apache.org/docs/en/latest/config_ref/index.html </li>
+  </body>
+</html>
